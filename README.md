@@ -7,9 +7,9 @@ My school homework
 3. Put converted numbers back in place (Занесение результатов в конечную строку)
 
 ## Todo
-[x] - First version (Первая версия)
-[ ] - Support in-word numbers (Поддержка чисел, не обрамленных пробелами)
-[ ] - Support other numerical systems (Поддержка других СС)
+ - [x] First version (Первая версия)
+ - [ ] Support in-word numbers (Поддержка чисел, не обрамленных пробелами)
+ - [ ] Support other numerical systems (Поддержка других СС)
 
 ## Examples
 1. `He won 5 games in 2 days` => `He won 101 games in 10 days`
