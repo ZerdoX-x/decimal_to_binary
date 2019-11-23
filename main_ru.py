@@ -35,12 +35,12 @@ for index, symbol in enumerate(user_input):
     except IndexError:  # IndexError: list index out of range
         output.append(user_input[first_symbol_of_chunk:])
 
-# цикл, проверяющий каждый элемент списка "output"(вывод) на то, является ли он числом:
+# цикл, проверяющий каждый элемент списка "output" (вывод) на то, является ли он числом:
 for index, chunk in enumerate(output):
-    # условие - если правда(т.е. всегда): число = это число, обработанное функцией
+    # число = это число, обработанное функцией
     try:
-        output[index] = decimal_to_binary(int(chunk)) if True else output[index]
-    # если возникла ошибка(т.е. элемент не является числом): пропустить элемент
+        output[index] = decimal_to_binary(int(chunk))
+    # если возникла ошибка (т.е. элемент не является числом): пропустить элемент
     except ValueError:
         pass
 
