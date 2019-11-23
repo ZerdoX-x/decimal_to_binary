@@ -4,6 +4,9 @@ integers = [str(i) for i in range(10)]  # generate all digits with base 10
 
 # function that takes number in num. system with base 10, and returns num. system with base 2
 def decimal_to_binary(number):
+    if number == 0:
+        return "0"
+
     result = ""
 
     while number > 0:

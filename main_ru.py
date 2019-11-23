@@ -4,6 +4,9 @@ integers = [str(i) for i in range(10)]  # генерируется список 
 
 # создаётся функция: принимает число в десятичной СС, возвращает число в двоичной СС
 def decimal_to_binary(number):
+    if number == 0:
+        return "0"
+
     result = ""
 
     while number > 0:
