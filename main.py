@@ -1,45 +1,51 @@
-# get string
-# user_input = str(input("Enter string: ")).split()
-user_input = str(input("Enter string: "))
-integers = [str(i) for i in range(10)]
+user_input, output = str(input()), []  # ask for input, name output
+integers = [str(i) for i in range(10)]  # generate all digits with base 10
 
 
-# converting function
-def decimal_to_binary(num):
-    res = ""
+# function that takes number in num. system with base 10, and returns num. system with base 2
+def decimal_to_binary(number):
+    result = ""
 
-    while num > 0:
-        res += str(num % 2)
-        num = num // 2
+    while number > 0:
+        result += str(number % 2)
+        number = number // 2
 
-    return res[::-1]
-
-
-for letter in user_input:
-    if letter in integers:
-        start = -1
-        end = 0
-        if start == -1 or user_input.index(letter) < start:           # if this is first digit of a number
-            start = user_input.index(letter)                          # index of first digit of a number
-            tmp = start                                               # increasing index of a number
-
-        try:
-            if user_input[tmp + 1] in integers:                       # if number goes on
-                try:
-                    while isinstance(int(user_input[tmp + 1]), int):  # while number goes on
-                        tmp += 1                                      # increase index of last digit of a number
-                    end = tmp
-                except IndexError:                                    # if digit is a last character of a string
-                    end = tmp                                         # 'end' is last available value
-                    pass
-        except ValueError:                                            # if number consists of one digit
-            end = start                                               # number starts and ends on the same index
+    return result[::-1]
 
 
-print(start, end)
+first_symbol_of_chunk = 0  # variable that keeps index of first symbol for next chunk
 
-# output
-# print('Result: ', end="")
-# for chunk in user_input:
-#     print(chunk, end=" ")
-# print('')
+# loop that splits string to a list:
+for index, symbol in enumerate(user_input):
+    try:
+        # if ((symbol is not an integer)
+        # & (next symbol is an integer)
+        # & (index of a symbol is not lower than first symbol of next chunk))
+        # OR ((symbol is an integer)
+        # & (next symbol is not an integer)
+        # & (index of a symbol is not lower than first symbol of next chunk)):
+        if (symbol not in integers
+                and user_input[index+1] in integers
+                and index >= first_symbol_of_chunk)\
+                or (symbol in integers
+                    and user_input[index+1] not in integers
+                    and index >= first_symbol_of_chunk):
+            # add slice[from first symbol:to symbol's index that passed the conditions(incl.)] to the "output" list
+            output.append(user_input[first_symbol_of_chunk:index+1])
+            # next chunk's start = is the end of the previous chunk+1
+            first_symbol_of_chunk = index+1
+    # if you have reached the end of the list:
+    # add slice[from first symbol:to the end of the string] to the "output" list
+    except IndexError:  # IndexError: list index out of range
+        output.append(user_input[first_symbol_of_chunk:])
+
+# check if chunk is a number:
+for index, chunk in enumerate(output):
+    # if it's True: number = number with base 2
+    try:
+        output[index] = decimal_to_binary(int(chunk)) if True else output[index]
+    # if it's not a number - pass
+    except ValueError:
+        pass
+
+print(''.join(output))  # print all elements of list without separator
