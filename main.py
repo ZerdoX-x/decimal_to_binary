@@ -1,5 +1,7 @@
 # get string
-user_input = str(input("Enter string: ")).split()
+# user_input = str(input("Enter string: ")).split()
+user_input = str(input("Enter string: "))
+integers = [str(i) for i in range(10)]
 
 
 # converting function
@@ -13,16 +15,31 @@ def decimal_to_binary(num):
     return res[::-1]
 
 
-# parse string, convert nums
-for chunk in user_input:
-    try:
-        if int(chunk):  # if chunk(word) can be translated to integer: convert this number
-            user_input[user_input.index(chunk)] = decimal_to_binary(int(chunk))
-    except ValueError:
-        pass  # exception for chunks that can't be translated into integer
+for letter in user_input:
+    if letter in integers:
+        start = -1
+        end = 0
+        if start == -1 or user_input.index(letter) < start:           # if this is first digit of a number
+            start = user_input.index(letter)                          # index of first digit of a number
+            tmp = start                                               # increasing index of a number
+
+        try:
+            if user_input[tmp + 1] in integers:                       # if number goes on
+                try:
+                    while isinstance(int(user_input[tmp + 1]), int):  # while number goes on
+                        tmp += 1                                      # increase index of last digit of a number
+                    end = tmp
+                except IndexError:                                    # if digit is a last character of a string
+                    end = tmp                                         # 'end' is last available value
+                    pass
+        except ValueError:                                            # if number consists of one digit
+            end = start                                               # number starts and ends on the same index
+
+
+print(start, end)
 
 # output
-print('Result: ', end="")
-for chunk in user_input:
-    print(chunk, end=" ")
-print('')
+# print('Result: ', end="")
+# for chunk in user_input:
+#     print(chunk, end=" ")
+# print('')
